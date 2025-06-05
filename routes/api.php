@@ -17,5 +17,7 @@ Route::prefix('ventas')->group(function(){
 Route::apiResource('productos', ProductoController::class);
 
 Route::prefix('reportes')->group(function(){
-    
+
 });
+
+Route::apiResource('usuarios', UsuarioController::class);
