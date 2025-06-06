@@ -9,6 +9,7 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     login(email, password).then(response => {
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('rol', response.data.rol);
+    localStorage.setItem('nombre', response.data.nombre);
 
     if (response.data.rol === 'empleado' || response.data.rol === 'administrador') {
         window.location.href = '/pos';
