@@ -5,19 +5,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\VentaController;
 use App\Http\Controllers\Api\UsuarioController;
+use App\Http\Controllers\Api\AuthController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('login', [AuthController::class, 'login']);
 
-Route::prefix('ventas')->group(function(){
+Route::middleware('auth:sanctum')->group(function() {
+    Route::apiResource('productos', ProductoController::class);
+    Route::apiResource('usuarios', UsuarioController::class);
 
+    Route::prefix('ventas')->group(function(){
+        // ...
+    });
+
+    Route::prefix('reportes')->group(function(){
+        // ...
+    });
 });
-
-Route::apiResource('productos', ProductoController::class);
-
-Route::prefix('reportes')->group(function(){
-
-});
-
-Route::apiResource('usuarios', UsuarioController::class);
