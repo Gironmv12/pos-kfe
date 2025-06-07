@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'POS')</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     @vite('resources/css/app.css')
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+            @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/pages/login.js'])
+    @else
+    <!-- You can add fallback assets here if needed -->
+    @endif
 </head>
 <body class="flex h-screen">
     <div class="flex-1 flex flex-col">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log; 
 
 class ProductoController extends Controller
 {
@@ -16,9 +17,17 @@ class ProductoController extends Controller
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'imagen'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validación de imagen
         ]);
 
         $producto = Producto::create($validate);
+
+        if($request->hasFile('imagen')){
+            $imagenPath = $request->file('imagen')->store('productos', 'public');
+            $producto->imagen = $imagenPath;
+        }
+
+        $producto->save();
 
         return response()->json([
             'message' => 'Producto creado exitosamente',
@@ -27,13 +36,7 @@ class ProductoController extends Controller
     }
 
     //obtener todos los productos
-    public function index()
-    {
-        $productos = Producto::all();
-        return response()->json([
-            'productos' => $productos,
-        ], 200);
-    }
+    
 
     //actualizar un producto
     public function update(Request $request, $id)
@@ -43,14 +46,37 @@ class ProductoController extends Controller
             'descripcion' => 'nullable|string',
             'precio' => 'sometimes|required|numeric|min:0',
             'stock' => 'sometimes|required|integer|min:0',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validación de imagen
         ]);
 
         $producto = Producto::findOrFail($id);
+
+        Log::info('Datos recibidos para actualizar:', $validate);
+
+        // Actualiza los datos de texto
         $producto->update($validate);
+
+        // Si se envió una imagen, se procesa
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('productos', 'public');
+            $producto->imagen = $imagenPath;
+            $producto->save();
+            Log::info('Imagen actualizada:', ['ruta' => $imagenPath]);
+        }
+
+        Log::info('Producto actualizado:', $producto->toArray());
 
         return response()->json([
             'message' => 'Producto actualizado exitosamente',
             'producto' => $producto,
+        ], 200);
+    }
+
+    public function index()
+    {
+        $productos = Producto::all();
+        return response()->json([
+            'productos' => $productos,
         ], 200);
     }
 

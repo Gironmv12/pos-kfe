@@ -1,2 +1,4 @@
 import './bootstrap';
-import './pages/login.js';
+import { createIcons, icons } from 'lucide';
+
+createIcons({ icons });

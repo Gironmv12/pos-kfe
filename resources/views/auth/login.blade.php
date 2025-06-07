@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/pages/login.js'])
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
     <!-- You can add fallback assets here if needed -->
     @endif
@@ -65,5 +65,35 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    if (!loginForm) return;
+    
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const LOGIN_URL = "{{ route('api.login') }}";
+            const response = await axios.post(LOGIN_URL, {
+                email: email,
+                password: password
+            });
+            // Se espera que la respuesta incluya token, rol y nombre
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('rol', response.data.rol);
+            localStorage.setItem('nombre', response.data.nombre);
+            // Redirigir al dashboard o POS
+            window.location.href = '/pos';
+        } catch (error) {
+            console.error(error);
+            alert('Error en la autenticación');
+        }
+    });
+});
+    </script>
 </body>
 </html>
