@@ -25,10 +25,8 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::delete('{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
     });
     
-
-    Route::prefix('ventas')->group(function(){
-        // ...
-    });
+    route::post('venta',[VentaController::class, 'store'])
+        ->name('venta.store');
 
     Route::prefix('reportes')->group(function(){
         // ...
