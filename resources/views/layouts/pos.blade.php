@@ -24,6 +24,9 @@
             <a id="link-ventas" href="{{ route('ventas') }}" class="{{ request()->routeIs('ventas') ? 'active-tab text-blue-500' : 'text-blue-500 hover:underline' }}">Ventas</a>
             <a id="link-productos" href="{{ route('productos') }}" class="{{ request()->routeIs('productos') ? 'active-tab text-blue-500' : 'text-blue-500 hover:underline' }}">Productos</a>
             <a id="link-reportes" href="{{ route('reportes') }}" class="{{ request()->routeIs('reportes') ? 'active-tab text-blue-500' : 'text-blue-500 hover:underline' }}">Reportes</a>
+
+            <button id="logout-button" class="text-blue-500 hover:underline ml-auto mr-4">Cerrar sesión</button>
+
         </nav>
         <main class="flex-1 p-4">
             @yield('content')
@@ -39,6 +42,13 @@
                 document.getElementById('link-reportes').style.display = 'none';
             }
         });
+
+        document.getElementById('logout-button').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('rol');
+            window.location.href = "{{ route('login') }}";
+        });
+        
     </script>
 </body>
 </html>

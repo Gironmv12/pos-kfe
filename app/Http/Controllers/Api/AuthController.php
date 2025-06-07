@@ -28,6 +28,8 @@ class AuthController extends Controller
             'message'=> 'Inicio de sesión exitoso',
             'nombre' => $usuario->nombre,
             'rol' => $usuario->rol,
+            //agregar el id del usuario
+            'usuario_id' => $usuario->id,
             'token' => $usuario->createToken('API Token')->plainTextToken,
         ]);
 

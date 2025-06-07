@@ -86,6 +86,7 @@
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('rol', response.data.rol);
             localStorage.setItem('nombre', response.data.nombre);
+            localStorage.setItem('usuario_id', response.data.usuario_id);
             // Redirigir al dashboard o POS
             window.location.href = '/pos';
         } catch (error) {
