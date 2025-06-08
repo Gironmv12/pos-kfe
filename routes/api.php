@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\VentaController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ReporteController;
 
 Route::post('login', [AuthController::class, 'login'])->name('api.login');
 Route::post('logout', [AuthController::class, 'logout'])
@@ -28,7 +29,9 @@ Route::middleware('auth:sanctum')->group(function() {
     route::post('venta',[VentaController::class, 'store'])
         ->name('venta.store');
 
-    Route::prefix('reportes')->group(function(){
-        // ...
-    });
+    Route::get('/reporte/productos-vendidos', [ReporteController::class, 'productosVendidosEnPeriodo']);
+    Route::get('/reporte/top3-productos', [ReporteController::class, 'top3ProductosMasVendidos']);
+    Route::get('reporte/grafica-ventas-productos', [ReporteController::class,'graficaVentasPorProductos']);
+
+
 });
