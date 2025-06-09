@@ -29,7 +29,8 @@ Route::middleware('auth:sanctum')->group(function() {
     route::post('venta',[VentaController::class, 'store'])
         ->name('venta.store');
 
-    Route::get('/reporte/productos-vendidos', [ReporteController::class, 'productosVendidosEnPeriodo']);
+    Route::get('/reporte/productos-vendidos', [ReporteController::class, 'productosVendidosEnPeriodo'])
+        ->name('reporte.productos_vendidos');
     Route::get('/reporte/top3-productos', [ReporteController::class, 'top3ProductosMasVendidos']);
     Route::get('reporte/grafica-ventas-productos', [ReporteController::class,'graficaVentasPorProductos']);
 

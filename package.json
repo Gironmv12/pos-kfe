@@ -17,6 +17,8 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
+        "chart.js": "^4.4.9",
+        "chartjs-adapter-date-fns": "^3.0.0",
         "lucide": "^0.513.0"
     }
 }
