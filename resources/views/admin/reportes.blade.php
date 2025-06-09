@@ -155,6 +155,12 @@
                         label: 'Total vendido',
                         data: data.map(i => i.total_vendida),
                         backgroundColor: ['#60a5fa', '#818cf8', '#fbbf24'],
+                        borderColor: ['#3b82f6', '#4f46e5', '#f59e0b'],
+                        borderWidth: 1,
+                        hoverBackgroundColor: ['#3b82f6', '#4f46e5', '#f59e0b'],
+                        hoverBorderColor: ['#2563eb', '#4338ca', '#d97706'],
+                        borderRadius: 5,
+                        barPercentage: 0.8,
                     }]
                 },
                 options: {
